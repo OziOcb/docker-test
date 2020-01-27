@@ -1,0 +1,288 @@
+// TODO: FOR CHILD THEME! parentMainMenu overrides! (do the same for the _hamburger.scss)
+// 1. Create separate file in the Child Theme (ex. parentThemeMainMenuOverride.scss)
+// 2. Add code like below, between /* */ (keep it commented)(this should let you to override parent's styles from the child theme)
+// 3. Pray that it'll work ;) (if not try adding !important)
+
+/*
+// Change behavior of the Parent Theme's Main Menu by changing the variables below (uncomment it first ;) )
+// (You can remove this file if you do not need to change anything)
+//
+// IMPORTANT!!
+// You do not have to touch this file if you only need to change the logo inside the main-menu dropdown...
+// Simply add your logo in ./img/template/ directory and name it "logo-dropdownMenu.svg"
+
+// Set the width of the menu:
+$parentMainMenu__width: 85vw;
+// Change to true if you want the menu to slide from left:
+$parentMainMenu__position--left: false;
+$parentMainMenu__transitionDuration: 0.3s linear;
+$parentMainMenu__paddingTop: 5vh;
+
+$parentMainMenu__boxShadow--desktop: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$parentMainMenu__boxShadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.07);
+
+$parentMainMenu__bgColor: palette("light");
+$parentMainMenu__bgColor--dropdown: darken($parentMainMenu__bgColor, 1%);
+$parentMainMenu__bgColor--itemHover: darken($parentMainMenu__bgColor, 3%);
+
+$parentMainMenu__fontColor: palette("black");
+$parentMainMenu__fontSize: 1em;
+
+$parentMainMenu__Logo: url("../img/template/logo-dropdownMenu.svg") center no-repeat;
+$parentMainMenu__LogoOpacity: 0.7;
+$parentMainMenu__LogoContainerHeight: 150px;
+$parentMainMenu__LogoPositionFromTheBottom: 0%;
+$parentMainMenu__LogoFilters: none;
+
+// Do not touch the code bellow
+.parentMainMenu {
+	width: $parentMainMenu__width;
+	padding-top: $parentMainMenu__paddingTop;
+	box-shadow: $parentMainMenu__boxShadow--desktop;
+	transition: transform $parentMainMenu__transitionDuration;
+
+	@if $parentMainMenu__position--left {
+		right: 100vw;
+	} @else {
+		left: 100vw;
+	}
+
+	&.parentMainMenu--show {
+		@if $parentMainMenu__position--left {
+			transform: translateX($parentMainMenu__width);
+		} @else {
+			transform: translateX(-$parentMainMenu__width);
+		}
+	}
+
+	!!! IMPORTANT !!! basically copy all parameters that use Sass variables & @if statements
+}
+*/
+// OPTIONS
+$parentMainMenu__width: 80vw;
+$parentMainMenu__position--left: false;
+$parentMainMenu__transitionDuration: 0.3s linear;
+$parentMainMenu__paddingTop: 5vh;
+$parentMainMenu__numberOfItems: 6;
+
+$parentMainMenu__boxShadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.07);
+$parentMainMenu__boxShadow--desktop: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
+$parentMainMenu__bgColor: palette("light");
+$parentMainMenu__bgColor--dropdown: darken($parentMainMenu__bgColor, 2%);
+$parentMainMenu__bgColor--itemHover: rgba(darken($parentMainMenu__bgColor, 10%), 0.6);
+
+$parentMainMenu__fontColor: palette("black");
+$parentMainMenu__fontSize: 1.1em;
+$parentMainMenu__fontSize--desktop: 1em;
+
+$parentMainMenu__itemPadding: 1em; // top & bottom only
+$parentMainMenu__itemPadding--desktop: 0.5em 1.4em;
+
+$parentMainMenu__Logo: true;
+$parentMainMenu__LogoImage: url("../img/template/logo-dropdownMenu.svg") center no-repeat;
+$parentMainMenu__LogoOpacity: 0.5;
+$parentMainMenu__LogoContainerHeight: 20%;
+$parentMainMenu__LogoContainerWidth: 100%;
+$parentMainMenu__LogoPositionFromTheBottom: 0%;
+$parentMainMenu__LogoFilters: none;
+
+// NOTE!
+// If you change the breakpoint value bellow ( ex. breakpoint('sm') )
+// you need to change two .navbar-expand-lg Bootstrap classes in the header.php file to match new value
+// ( ex. .navbar-expand-sm )
+$parentMainMenu__navbarExpandBreakpoint: breakpoint("lg");
+
+// CODE
+.parentMainMenu {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: $parentMainMenu__width;
+	display: flex;
+	align-items: flex-start;
+	background: $parentMainMenu__bgColor;
+	padding-top: $parentMainMenu__paddingTop;
+	padding-bottom: 0;
+	overflow-y: scroll;
+	box-shadow: $parentMainMenu__boxShadow--desktop;
+	transition: transform $parentMainMenu__transitionDuration;
+	@if $parentMainMenu__position--left {
+		right: 100vw;
+	} @else {
+		left: 100vw;
+	}
+
+	@if $parentMainMenu__Logo {
+		&:before {
+			content: "";
+			position: absolute;
+			bottom: $parentMainMenu__LogoPositionFromTheBottom;
+			left: 0;
+			width: $parentMainMenu__LogoContainerWidth;
+			height: $parentMainMenu__LogoContainerHeight;
+			background: $parentMainMenu__LogoImage;
+			opacity: $parentMainMenu__LogoOpacity;
+			filter: $parentMainMenu__LogoFilters;
+			z-index: -1;
+			transform: translateY(100%);
+			transition: transform 0.3s 1s;
+			@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+				display: none;
+			}
+		}
+		&.parentMainMenu--show:before {
+			transform: translateY(0);
+		}
+	}
+
+	@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+		position: relative;
+		left: 0;
+		width: 100vw;
+		background-image: none;
+		padding-top: 0;
+		overflow: initial;
+		transform: translateX(0);
+	}
+
+	&.parentMainMenu--show {
+		@if $parentMainMenu__position--left {
+			transform: translateX($parentMainMenu__width);
+		} @else {
+			transform: translateX(-$parentMainMenu__width);
+		}
+	}
+
+	&__inner {
+		overflow: hidden;
+		@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+			overflow: initial;
+		}
+
+		#searchForm {
+			opacity: 0;
+			transition: opacity 0.3s 0.3s ease;
+			@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+				opacity: 1;
+			}
+
+			.parentMainMenu--show & {
+				opacity: 1;
+			}
+		}
+
+		.navbar-nav > .menu-item {
+			opacity: 0;
+			transform: translateX(100%);
+			transition: transform 0.3s, opacity 0.6s;
+
+			@for $i from 1 through $parentMainMenu__numberOfItems {
+				&:nth-child(#{$i}) {
+					transition-delay: #{(($i * 1.3)+2.5) / 10}s;
+				}
+			}
+
+			@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+				opacity: 1;
+				transform: translateX(0);
+			}
+
+			&.menu-item--show {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		.dropdown-menu {
+			background: $parentMainMenu__bgColor--dropdown;
+		}
+
+		.nav-link,
+		.dropdown-item,
+		.dropdown-menu .nav-link,
+		.dropdown-menu .dropdown-item {
+			font-size: $parentMainMenu__fontSize;
+			color: $parentMainMenu__fontColor;
+			padding-top: $parentMainMenu__itemPadding;
+			padding-bottom: $parentMainMenu__itemPadding;
+			text-shadow: 1px 0px 1px $parentMainMenu__bgColor;
+
+			&:hover,
+			&:focus {
+				background: $parentMainMenu__bgColor--itemHover;
+			}
+
+			@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+				padding: $parentMainMenu__itemPadding--desktop;
+				font-size: $parentMainMenu__fontSize--desktop;
+			}
+		}
+	}
+
+	// Admin Bar fixes
+	// fix position when WP Admin Bar is visible
+	.admin-bar & {
+		margin-top: 46px;
+		@media (min-width: 783px) {
+			margin-top: 32px;
+		}
+		@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+			margin-top: 0;
+		}
+	}
+}
+
+// I could not use BEM because most of the classes below are Bootstrap's
+.dropdown-menu {
+	// Change background and add box-shadow to every dropdown-menu
+	background: #f8f9fa linear-gradient(180deg, #f9fafb, #f8f9fa) repeat-x;
+	box-shadow: $parentMainMenu__boxShadow;
+
+	// Make box-shadow bigger when on desktop
+	@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+		box-shadow: $parentMainMenu__boxShadow--desktop;
+	}
+
+	// Change background on hover & focus
+	.dropdown-item {
+		&:hover,
+		&:focus {
+			background: #e1e5e9 linear-gradient(180deg, #e0e5ea, #e1e5e9) repeat-x;
+		}
+	}
+}
+
+// make space for the icon of the first toggler button
+.dropdown-toggle {
+	@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+		padding-right: 1.5em;
+	}
+}
+
+.menu-item-has-children {
+	.dropdown-toggle:after {
+		content: "";
+		position: absolute;
+		right: 1.5em;
+		transform: translateY(0.5em);
+		@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+			right: 0.5em;
+		}
+	}
+
+	.submenu-toggle {
+		&:after {
+			@media (min-width: $parentMainMenu__navbarExpandBreakpoint) {
+				transform: translateY(0.5em) rotate(-90deg);
+			}
+		}
+
+		~ .dropdown-menu {
+			top: -0.55em;
+			left: 98%;
+			margin-top: 0px;
+			margin-left: 0px;
+		}
+	}
+}

@@ -1,0 +1,33 @@
+// Media Breakpoints
+// IMPORTANT! always use 'min-width:' in your media queries
+$breakpoints: (
+	'xxs': 320px, 					// mobile-sm
+	'xs': 480px,						// mobile
+	'sm': 576px,						// mobile-lg
+	'md': 768px,						// tablet-portrait
+	'lg': 992px,						// tablet-landscape
+	'xl': 1200px,						// screen
+	'xxl': 1440px,					// large-screen
+	// extra values
+	'container': 1100px,
+	'full-height': 100vh,
+	'full-width': 100vw
+);
+@function breakpoint($key: 'xxs') {
+	@return map-get($breakpoints, $key);
+}
+
+// EXAMPLE
+// IMPORTANT! always use 'min-width:' in your media queries
+//
+// .customClass {
+//   background: red;
+//
+//   @media (min-width: breakpoint('sm')) {
+//     background: blue;
+//   }
+//
+//   @media (min-width: breakpoint('xl')) {
+//     background: green;
+//   }
+// }

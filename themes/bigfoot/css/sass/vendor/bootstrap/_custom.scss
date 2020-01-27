@@ -1,0 +1,85 @@
+// Custom.scss
+/* ------- import the necessary Bootstrap files ------- */
+@import "scss/_functions";
+@import "scss/_variables";
+@import "../../base/_breakpoints.scss";
+@import "../../base/_typography.scss";
+@import "../../base/_palette.scss";
+
+/* ------- Your variable overrides ------- */
+// https://getbootstrap.com/docs/4.3/utilities/colors/#background-gradient
+$enable-gradients: true;
+
+// https://getbootstrap.com/docs/4.3/content/typography/#responsive-font-sizes
+$enable-responsive-font-sizes: true;
+
+// To modify Bootstrap's maps like the one below, follow their official guide:
+// https://getbootstrap.com/docs/4.0/getting-started/theming/#maps-and-loops
+$theme-colors: (
+	"primary": palette("primary"),
+	"secondary": palette("secondary"),
+	"success": palette("success"),
+	"danger": palette("danger"),
+	"warning": palette("warning"),
+	"info": palette("info"),
+	"light": palette("light"),
+	"dark": palette("dark"),
+	"white": palette("white"),
+	"black": palette("black"),
+	"accent1": palette("accent1"),
+	"accent2": palette("accent2"),
+	"accent3": palette("accent3"),
+	"accent4": palette("accent4")
+);
+
+// MEDIA QUERIES
+$grid-breakpoints: (
+	xxxs: 0,
+	xxs: breakpoint("xxs"),
+	xs: breakpoint("xs"),
+	sm: breakpoint("sm"),
+	md: breakpoint("md"),
+	lg: breakpoint("lg"),
+	xl: breakpoint("xl"),
+	xxl: breakpoint("xxl")
+);
+$container-max-widths: (
+	sm: breakpoint("sm") - 32px,
+	md: breakpoint("md") - 32px,
+	lg: breakpoint("lg") - 32px,
+	xl: breakpoint("xl") - 32px,
+	xxl: breakpoint("xxl") - 32px
+);
+
+// FONTS
+// font-family
+$headings-font-family: fontFamily("headings"), $font-family-sans-serif;
+$font-family-base: fontFamily("base"), $font-family-sans-serif;
+$input-btn-font-family: fontFamily("buttons"), $font-family-sans-serif;
+
+// Sizes
+// Base Size (paragraphs)
+$font-size-base: 1rem * fontSize("base");
+
+// Headings
+$h1-font-size: $font-size-base * fontSize("h1");
+$h2-font-size: $font-size-base * fontSize("h2");
+$h3-font-size: $font-size-base * fontSize("h3");
+$h4-font-size: $font-size-base * fontSize("h4");
+$h5-font-size: $font-size-base * fontSize("h5");
+$h6-font-size: $font-size-base * fontSize("h6");
+
+// 'display1-4' classes
+$display1-size: 1rem * fontSize("display1");
+$display2-size: 1rem * fontSize("display2");
+$display3-size: 1rem * fontSize("display3");
+$display4-size: 1rem * fontSize("display4");
+
+// 'lead' class
+$lead-font-size: 1rem * fontSize("lead");
+
+// 'blockquote' class
+$blockquote-font-size: 1rem * fontSize("blockQuote");
+
+/* ------- Bootstrap and its default variables ------- */
+@import "scss/bootstrap";

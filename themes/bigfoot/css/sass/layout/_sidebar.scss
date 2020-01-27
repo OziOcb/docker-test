@@ -1,0 +1,26 @@
+// TODO: Refactore the code bellow
+#sidebar {
+	display: block;
+	padding: 2em;
+	background-color: palette-color-level("secondary", 8);
+	#primary {
+		.widget-container {
+			min-height: 100px;
+			overflow: hidden;
+
+			.widget-title {
+				border-bottom: 1px solid palette("secondary");
+				padding: 0.5em 0em;
+			}
+			ul {
+				li {
+					list-style: none;
+					a {
+					}
+				}
+			}
+			img {
+			}
+		}
+	}
+}

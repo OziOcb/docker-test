@@ -1,0 +1,101 @@
+// Set of classes that are useful but are not included by Bootstrap 4
+// Feel free to add your own
+
+// LINE-HEIGHT:
+// Set different line-height values
+.lineHeight-1 { line-height: 1 }
+.lineHeight-1-5 { line-height: 1.5 }
+.lineHeight-2 { line-height: 2 }
+
+// OPACITY:
+// Set different levels of opacity
+.opacity100 { opacity: 1 }
+.opacity75 { opacity: 0.75 }
+.opacity50 { opacity: 0.5 }
+.opacity25 { opacity: 0.25 }
+
+// FLEX-BOX INSIDE:
+// Set "display: flex" on the element that is inside the element (parent) with this class
+.flexInside > * { display: flex }
+
+.flexInsideDirectionRow > * { flex-direction: row }
+.flexInsideDirectionColumn > * { flex-direction: column }
+
+.flexInsideJustifyStart > * { justify-content: flex-start }
+.flexInsideJustifyEnd > * { justify-content: flex-end }
+.flexInsideJustifyCenter > * { justify-content: center }
+.flexInsideJustifyStretch > * { justify-content: stretch }
+.flexInsideJustifyBetween > * { justify-content: space-between }
+.flexInsideJustifyAround > * { justify-content: space-around }
+
+.flexInsideAlignItemsStart > * { align-items: flex-start }
+.flexInsideAlignItemsEnd > * { align-items: flex-end }
+.flexInsideAlignItemsCenter > * { align-items: center }
+.flexInsideAlignItemsStretch > * { align-items: stretch }
+.flexInsideAlignItemsBaseline > * { align-items: baseline }
+
+.flexInsideAlignContentStart > * { align-content: flex-start }
+.flexInsideAlignContentEnd > * { align-content: flex-end }
+.flexInsideAlignContentCenter > * { align-content: center }
+.flexInsideAlignContentStretch > * { align-content: stretch }
+.flexInsideAlignContentBetween > * { align-content: space-between }
+.flexInsideAlignContentAround > * { align-content: space-around }
+
+// FLEX: { grow || shrink }
+// https://developer.mozilla.org/en-US/docs/Web/CSS/flex
+.flex-1 { flex: 1 }
+.flex-2 { flex: 2 }
+.flex-0-0 { flex: 0 0 }
+.flex-0-1 { flex: 0 1 }
+.flex-1-0 { flex: 1 0 }
+.flex-1-1 { flex: 1 1 }
+
+// FLEX-BASIS:
+// Create a collection of classes that set flex-basis: on the element
+//
+// .flexBasis0 { flex-basis: 0px }
+// .flexBasis400 { flex-basis: 400px }
+$rotateNumOfClasses: 9;
+$rotateIncrementBy: 100;
+
+// https://sass-lang.com/documentation/at-rules/control/for
+@for $i from 0 through $rotateNumOfClasses {
+  .flexBasis#{$i * $rotateIncrementBy} { flex-basis: #{$i * $rotateIncrementBy}px }
+}
+
+// Create a collection of classes that set element's HEIGHT: or MIN-HEIGHT: using VH and VW units
+//
+// .h25vh { height: 25vh }
+// .h50vw { height: 50vw }
+// .minH75vh { min-height: 75vh }
+// .minH100vw { min-height: 100vw }
+$heightNumOfLoops: 4;
+$heightIncrementBy: 25;
+
+@for $i from 0 through $heightNumOfLoops {
+  .h#{$i * $heightIncrementBy}vh { height: $i * $heightIncrementBy + vh }
+  .h#{$i * $heightIncrementBy}vw { height: $i * $heightIncrementBy + vw }
+  .minH#{$i * $heightIncrementBy}vh { min-height: $i * $heightIncrementBy + vh }
+  .minH#{$i * $heightIncrementBy}vw { min-height: $i * $heightIncrementBy + vw }
+}
+
+// TRANSFORM: ROTATE();
+// Create a collection of classes that set transform: rotate on the element
+//
+// .rotate45 { transform: rotate(45deg) }
+// .rotateMinus90 { transform: rotate(-90deg) }
+$rotateNumOfClasses: 4;
+$rotateIncrementBy: 45;
+
+@for $i from 0 through $rotateNumOfClasses {
+  .rotate#{$i * $rotateIncrementBy} { transform: rotate(#{$i * $rotateIncrementBy}deg) }
+  .rotateMinus#{$i * $rotateIncrementBy} { transform: rotate(-#{$i * $rotateIncrementBy}deg) }
+}
+
+// Misc
+.noTransition { transition-duration: 0.01s }
+
+.zIndexUnder { z-index: -999999 !important }
+
+.overflowVisible { overflow: visible !important }
+.overflowYScroll { overflow-y: scroll }

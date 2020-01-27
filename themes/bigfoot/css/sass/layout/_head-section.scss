@@ -1,0 +1,13 @@
+// Admin Bar fixes
+.admin-bar {
+	#wpadminbar {
+		position: fixed;
+	}
+	.adminBarFix {
+		margin-top: 46px;
+
+		@media (min-width: 783px) {
+			margin-top: 32px;
+		}
+	}
+}

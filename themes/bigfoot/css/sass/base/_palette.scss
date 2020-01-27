@@ -1,0 +1,41 @@
+// Colour Palette
+// Make changes to the Bootstrap's default colors.
+// Or add your own colors and use them with bootstrap (ex. bg-myColor, btn-myColor, text-myColor)
+$palette: (
+	"primary": #007bff,
+	"secondary": #6c757d,
+	"success": #28a745,
+	"danger": #dc3545,
+	"warning": #ffc107,
+	"info": #17a2b8,
+	"light": #f8f9fa,
+	"dark": #343a40,
+	"white": #ffffff,
+	"black": #141414,
+	"accent1": #173257,
+	"accent2": #49486a,
+	"accent3": #ef5d5d,
+	"accent4": #cdcdcd
+);
+@function palette($key: "primary") {
+	@return map-get($palette, $key);
+}
+
+// EXAMPLES
+
+// For basic use in SCSS
+// .customClass {
+// 		background: palette("primary");
+// }
+
+// In case you want to lighten, darken or make an element transparent use SCSS functions
+// - darken - https://sass-lang.com/documentation/functions/color#darken
+// - lighten - https://sass-lang.com/documentation/functions/color#lighten
+// - transparentize - https://sass-lang.com/documentation/functions/color#transparentize or
+// - scale-color - https://sass-lang.com/documentation/functions/color#scale-color
+//
+// .customClass {
+// 		background: darken(palette("primary"), 4);
+// 		background: lighten(palette("primary"), 4);
+// 		background: transparentize(palette("primary"), 0.2);
+// }

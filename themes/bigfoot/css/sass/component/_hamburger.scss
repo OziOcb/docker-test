@@ -1,0 +1,274 @@
+/* ==========================================================================================
+ * HAMBURGER BASE STYLES
+ * ========================================================================================== */
+
+//──── Variables ──────────────────────────────────────────────────────────────────────────────────
+$base__color: #eee; // Base color
+$base__color--active: #222;
+$base__thick: 2px; // Thickness of the hamburger elements
+$base__padding: 2px;
+
+// Hamburger Size
+$h_hight: 30px;
+$h_width: 30px;
+
+// Hamburger Bars
+$h_bar-h: $base__thick; // Thickness of bars
+
+// Background
+$h_bg: false; // Do you want the hamburger to have a background??
+$h_bg-color: rgba(255, 255, 255, 0.2); // Color of the background
+
+// Border
+$h_bor: false; // Do you want the hamburger to have a border??
+$h_bor-thick: 0px; // Thickness of the border (takes value of $base_thick if it's set to 0px)
+$h_bor-color: 0; // Color of the border (takes value of $base_color if it's set to 0)
+$h_bor-radius: 10%; // radius of the border
+
+@if $h_bor-thick == 0 {
+	$h_bor-thick: $base__thick;
+}
+@if $h_bor-color == 0 {
+	$h_bor-color: $base__color;
+}
+
+// Glow
+$h_glow: true; // Do you want to turn on the glowing effect?
+$h_glow-blur: 2px; // Size of a blur
+$h_glow-animation: true; // Do you want to turn on the glowing animation on hover?
+$h_glow-animation-time: 1.2s; // Animation time
+
+// Transition
+$h_trans-dur: 0.3s; // Transition duration - full
+$h_trans-dur-50: calc(#{$h_trans-dur} / 2); // Transition duration - 50%
+$h_trans-dur-33: calc(#{$h_trans-dur} / 3); // Transition duration - 33%
+$h_trans-timing-fun: linear; // Transition timing function (ease, ease-in-out, etc.)
+
+//──── Hamburger Base ──────────────────────────────────────────────────────────────────────────────────
+.ham {
+	z-index: 1;
+	&__box {
+		height: $h_hight;
+		width: $h_width;
+		padding: $base__padding;
+		border-radius: $h_bor-radius;
+		position: relative;
+
+		@if $h_bg {
+			background: $h_bg-color;
+		}
+		@if $h_bor {
+			border: $h_bor-thick solid $h_bor-color;
+			overflow: hidden;
+		}
+	}
+
+	&__bar {
+		display: block;
+		background: $base__color;
+		position: absolute;
+		height: $h_bar-h;
+		width: calc(100% - 2 * #{$base__padding});
+
+		transition-property: all;
+		transition-duration: $h_trans-dur;
+		transition-timing-function: $h_trans-timing-fun;
+
+		&--top {
+			top: 15%;
+		}
+		&--mid {
+			top: calc(50% - #{$base__thick} / 2);
+		}
+		&--bottom {
+			bottom: 15%;
+		}
+	}
+
+	&.navbar-toggler:not(.collapsed) {
+		.ham__bar {
+			&--top {
+				top: calc(50% - #{$base__thick} / 2);
+				transform: rotate(45deg);
+				background: $base__color--active;
+			}
+			&--mid {
+				opacity: 0;
+			}
+			&--bottom {
+				bottom: calc(50% - #{$base__thick} / 2);
+				transform: rotate(-45deg);
+				background: $base__color--active;
+			}
+		}
+	}
+
+	/* ------- ham--180 ------- */
+	&.ham--180 {
+		transform: rotate(180deg);
+	}
+	/* ------- ham--180-0 ------- */
+	&.ham--180-0.navbar-toggler:not(.collapsed) {
+		transform: rotate(180deg);
+	}
+}
+
+// Glow effect
+@if $h_glow {
+	.ham {
+		// glow on hover
+		&__box:hover .ham__bar::before {
+			filter: blur(calc(#{$h_glow-blur} * 1.5));
+
+			@if $h_glow-animation {
+				animation: glow #{$h_glow-animation-time} cubic-bezier(0.55, 0.09, 0.68, 0.53) infinite;
+			}
+		}
+
+		&__bar::before {
+			content: "";
+			display: block;
+			background: $base__color;
+			filter: blur($h_glow-blur);
+			width: 105%;
+			height: 105%;
+
+			transition: all 0.3s ease;
+		}
+	}
+
+	@if $h_glow-animation {
+		@keyframes glow {
+			0% {
+				background: darken($base__color, 10%);
+				opacity: 0.5;
+			}
+			25% {
+				background: lighten($base__color, 10%);
+				opacity: 1;
+			}
+			100% {
+				background: darken($base__color, 10%);
+				opacity: 0.5;
+			}
+		}
+	}
+}
+
+/* ==========================================================================================
+ * HAMBURGER TYPES
+ * ========================================================================================== */
+
+//──────────────────────────────────────────────────────────────────────────────────────
+//──── Basic ──────────────────────────────────────────────────────────────────────────────────
+/* ------- Basic-r ------- */
+.ham--basic-r.navbar-toggler:not(.collapsed) .ham__bar--mid {
+	transform: translate(25px);
+}
+
+/* ------- Basic-L ------- */
+.ham--basic-l.navbar-toggler:not(.collapsed) .ham__bar--mid {
+	transform: translate(-25px);
+}
+
+//──────────────────────────────────────────────────────────────────────────────────────
+//──── Smooth ───────────────────────────────────────────────────────────────────────────
+.ham--smooth-r,
+.ham--smooth-l {
+	overflow: hidden;
+}
+/* ------- Smooth-r ------- */
+.ham--smooth-r.navbar-toggler:not(.collapsed) .ham__bar--mid {
+	opacity: 1;
+	width: 0px;
+}
+/* ------- Smooth-l ------- */
+.ham--smooth-l.navbar-toggler:not(.collapsed) .ham__bar--mid {
+	transform: translateX(75px);
+}
+
+//──────────────────────────────────────────────────────────────────────────────────────
+//──── Fold ───────────────────────────────────────────────────────────────────────────
+.ham--fold {
+	.ham__bar {
+		&--top {
+			transition: top $h_trans-dur-50 $h_trans-dur-50 $h_trans-timing-fun, transform $h_trans-dur-50 $h_trans-timing-fun;
+		}
+		&--mid {
+			transition: opacity $h_trans-dur-50 $h_trans-dur-33 $h_trans-timing-fun;
+		}
+		&--bottom {
+			transition: bottom $h_trans-dur-50 $h_trans-dur-50 $h_trans-timing-fun, transform $h_trans-dur-50 $h_trans-timing-fun;
+		}
+	}
+
+	&.navbar-toggler:not(.collapsed) .ham__bar {
+		&--top {
+			transition: top $h_trans-dur-50 $h_trans-timing-fun, transform $h_trans-dur-50 $h_trans-dur-50 $h_trans-timing-fun;
+		}
+		&--bottom {
+			transition: bottom $h_trans-dur-50 $h_trans-timing-fun, transform $h_trans-dur-50 $h_trans-dur-50 $h_trans-timing-fun;
+		}
+	}
+}
+
+/* ------- Fold-alt ------- */
+.ham--fold-alt.navbar-toggler:not(.collapsed) .ham__bar {
+	&--top {
+		transform: rotate(45deg);
+	}
+	&--bottom {
+		transform: rotate(135deg);
+	}
+}
+
+//──────────────────────────────────────────────────────────────────────────────────────
+//──── vanish ───────────────────────────────────────────────────────────────────────────
+.ham--vanish {
+	&.navbar-toggler:not(.collapsed) {
+		animation: fadeOutIn 1s forwards;
+
+		.ham__bar {
+			&--top,
+			&--mid,
+			&--bottom {
+				transition-delay: 0.4s;
+				animation: slideOutLeft 1s forwards;
+			}
+			&--mid {
+				animation-delay: 0.1s;
+				animation: slideOutRight 1s forwards;
+			}
+			&--bottom {
+				animation-delay: 0.2s;
+			}
+		}
+	}
+
+	@keyframes slideOutLeft {
+		50% {
+			margin-left: -20px;
+		}
+		55% {
+			margin-left: 0px;
+		}
+	}
+	@keyframes slideOutRight {
+		50% {
+			margin-left: 20px;
+		}
+		55% {
+			margin-left: 0px;
+		}
+	}
+	@keyframes fadeOutIn {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50%,
+		75% {
+			opacity: 0;
+		}
+	}
+}
